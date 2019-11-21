@@ -10,4 +10,4 @@ cmdb的雏形
 在执行 
  python3 manage.py runserver 
 
-
+uwsgi 需要http代理使用
