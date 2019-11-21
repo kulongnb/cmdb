@@ -1,3 +1,5 @@
+
+uwsgi
 amqp==2.5.1
 ansible==2.9.0
 appdirs==1.4.3
