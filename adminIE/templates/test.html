@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Ajax上传文件</h1>
+<form>
+    {% csrf_token %}
+    <input type="file" />
+    <input type="text" name="one" value="FormData_one" />
+    <input type="text" name="two" value="FormData_two" />
+    <button>Ajax提交</button>
+</form>
+{% endblock %}
+{% block script  %}
+<script>
+    $(function () {
+        $('#ajax_btn').click(function () {
+            var fmd_obj = new FormData(); // 实例化一个对象
+            // 向对象中添加数据，格式：fmd_obj.append('key','value')
+            fmd_obj.append('sub_file_name', document.getElementById('sub_file').files[0]);
+            fmd_obj.append('my_list', ['a', 'b']); //每次都可以向这个对象中添加一个数据
+            fmd_obj.append('my_key', 'my_value');
+            fmd_obj.append('csrfmiddlewaretoken', '{{ csrf_token }}') // 解决认证问题
+            fmd_obj.append('data', $("#Ajax_FD_submit").serialize());
+
+            $.ajax({
+                url: "/ajax-upload/",
+                type: 'POST',
+                data: fmd_obj,
+                processData: false, // tell jQuery not to process the data
+                contentType: false, // tell jQuery not to set contentType
+                success: function (arg) {
+                    console.log(arg);
+                },
+            });
+            return false; // 最好返回false，因为如果按钮类型是submit,或者是 button 标签，
+            // 则表单自己又会以 GET 的方式再提交一次;返回false阻止表单再次提交
+        });
+    });
+</script>
+
+{% endblock  %}

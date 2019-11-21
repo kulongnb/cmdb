@@ -1,0 +1,176 @@
+<!-- <!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../static/js/vue.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{ msg }}</h1>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            msg: "Hello Vue"
+        },
+
+    });
+</script>
+</html> -->
+
+
+<!-- <!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../static/js/vue.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <span>{{ msg }}</span>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        template: '<h1>{{ msg }}</h1>',
+        data: {
+            msg: "Hello Vue"
+        },
+
+    });
+</script>
+</html> -->
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../static/js/vue.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div v-if="seen"><h1>Vue</h1></div>
+        <button v-on:click="handle">点击</button>
+    </div>
+</body>
+<script>
+    var app = new Vue( {
+        el: '#app',
+        data: {
+            seen: 
+        },
+        methods: {
+            handle: function () {
+                this.seen = !this.seen
+            }
+        }
+    });
+</script>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../static/js/vue.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div v-if="seen==='qf'"><h1>Vue</h1></div>
+        <div v-else><h1>Hello</h1></div>
+    </div>
+</body>
+<script>
+    var app = new Vue( {
+        el: '#app',
+        data: {
+            seen: "qf"
+        },
+
+    });
+</script>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../static/js/vue.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div v-if="seen==='qf'"><h1>Vue</h1></div>
+        <div v-else-if="seen==='rr'"><h1>RouRou</h1></div>
+        <div v-else><h1>Hello</h1></div>
+    </div>
+</body>
+<script>
+    var app = new Vue( {
+        el: '#app',
+        data: {
+            seen: "rrw"
+        },
+
+    });
+</script>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../static/js/vue.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div v-if="seen==='username'" key="user">
+            使用用户名登录<input type="text">
+        </div>
+        <div v-else="seen==='email'" key="pwd">
+            使用邮箱登录<input type="email">
+        </div>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            seen: "username"
+        },
+
+    });
+</script>
+
+</html> -->
+

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+内容
+<div class="row">
+    <div class=" col-md-6 col-md-offset-3">
+        <input type="text" id="num">
+        <span>
+            <button id="btn" class="btn btn-success">发送</button>
+        </span>
+
+    </div>
+
+
+</div>
+<div class="row">
+    <div class=" col-md-6 col-md-offset-3">
+        <span>
+            <button id="getTask" class="btn btn-success">结果展示</button>
+        </span>
+        <p id="task"></p>
+    </div>
+
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script>
+        var  task_id=''
+       
+        $("#btn").on("click", function () {
+            // let num = $(this).parent().siblings().first.val
+            let num = document.getElementById("num").value
+            $.ajax({
+                url: "{% url 'octopus:asyncdemo' %}",
+                type: "POST",
+                data: {
+                    "num": num,
+                    "csrfmiddlewaretoken": '{{ csrf_token }}',
+                },
+                dataType: "json",
+                success: function (res) {
+                    this.task_id = res.task_id
+
+                    alert(this.task_id)
+
+                }
+            });
+        });
+        $("#getTask").on("click", function () {
+            // let num = $(this).parent().siblings().first.val
+            // let num = document.getElementById("num").value
+            $.ajax({
+                url: "/octopus/get_task/?task_id=${task_id}",
+                type: "GET",
+                data: {
+                    // "task_id": task_id,
+                    "csrfmiddlewaretoken": '{{ csrf_token }}',
+                },
+                dataType: "json",
+                success: function (res) {
+                    
+                    $("#task").append(
+
+                            res.id
+                    )
+
+                }
+            });
+        })
+
+
+</script>
+{% endblock %}
