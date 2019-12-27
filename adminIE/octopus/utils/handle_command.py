@@ -3,19 +3,23 @@ from adminIE.settings import INVENT_PATH as invent_path   # 导入资产清单�
 import pexpect
 
 # 判断输入shell命令的正确性
+
+
 class HandleCommand:
     ret_msg = {"status": False, "msg": "命令格式错误"}
 
-    def __init__(self, command,inventorys):
+    def __init__(self, command, inventorys):
         self.command = command
         self.invent_path = invent_path
-        self.inventorys=inventorys
+        self.inventorys = inventorys
         self.command_tpl = "{} -i {} -{}"
         self.rewrite()
+
     def checked(self):
         try:
             ansib, arg = self.command.split("-", 1)
-            self.command = self.command_tpl.format(ansib, self.invent_path, arg) #简单判断ansible命令
+            self.command = self.command_tpl.format(
+                ansib, self.invent_path, arg)  # 简单判断ansible命令
         except Exception as e:
             print(e)
 
@@ -31,24 +35,22 @@ class HandleCommand:
         return self.ret_msg
 
     def rewrite(self):
-        tpl_group="[{}]\n"
-        tpl_host="{}\n"
-        content_list=[]
+        tpl_group = "[{}]\n"
+        tpl_host = "{}\n"
+        content_list = []
         for g in self.inventorys:
             content_list.append(tpl_group.format(g.group))
             for h in g.server.all():
                 content_list.append(tpl_host.format(h.manager_id))
-        with open(self.invent_path,'w',encoding="utf-8") as f: 
+        with open(self.invent_path, 'w', encoding="utf-8") as f:
             f.writelines(content_list)
 
-        
-        
-        
+
 #  实现免密无交互
 class no_secret:
-    def __init__(self, command,pwd):
+    def __init__(self, command, pwd):
         self.command = command
-        self.pwd=pwd
+        self.pwd = pwd
 
     def no_interaction(self):
         try:
@@ -69,6 +71,3 @@ class no_secret:
             return True
         except Exception as e:
             return False
-
-
-

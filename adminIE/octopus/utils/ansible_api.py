@@ -88,13 +88,14 @@ class MyAnsiable2:
         self.loader = DataLoader()
 
         # 实例化 资产配置对象
-        self.inv_obj = InventoryManager(loader=self.loader, sources=self.inventory)
+        self.inv_obj = InventoryManager(
+            loader=self.loader, sources=self.inventory)
         # 添加组，主机
         self.inv_obj.add_group("nginx")
-        self.inv_obj.add_host('manger_id','nginx')
+        self.inv_obj.add_host('manger_id', 'nginx')
         # 添加组变量
-        group_obj=self.inv_obj.groups['nginx']
-        group_obj.set_variable('name','shark')
+        group_obj = self.inv_obj.groups['nginx']
+        group_obj.set_variable('name', 'shark')
 
         # 设置密码，可以为空字典，但必须有此参数
         self.passwords = {}

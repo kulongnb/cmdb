@@ -1,3 +1,5 @@
+from .tasks import ansible_run
+from celery.result import AsyncResult
 from django.shortcuts import render
 
 # Create your views here.
@@ -26,8 +28,8 @@ class ConnectionView(ListView):
         shell_comm = "ssh-copy-id  -p {port} {user}@{ip}".format(
             port=port, user=user, ip=ip
         )
-        no_secret = no_secret(shell_comm, pwd)
-        if no_secret:
+        is_conn = no_secret(shell_comm, pwd)
+        if is_conn:
             server.connection.authed = True
             server.connection.save()
             return JsonResponse({"status": True})
@@ -64,9 +66,6 @@ class asyncDemoView(ListView):
         return JsonResponse({"task_id": task.id})
 
 
-from celery.result import AsyncResult
-
-
 class get_task(View):
     def get(self, request):
         task_id = request.GET.get("task_id")
@@ -79,9 +78,6 @@ class get_task(View):
         }
         print(task_json)
         return JsonResponse(task_json)
-
-
-from .tasks import ansible_run
 
 
 class ansible_api(ListView):
@@ -138,4 +134,3 @@ class ansible_api(ListView):
 #     def get(self, request):
 #         conninfo = Server.objects.all()
 #         return render(request, "octopus/connection.html", {"connection": conninfo})
-
