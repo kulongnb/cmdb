@@ -105,8 +105,10 @@ class Asset(models.Model):
     资产信息表，所有资产公共信息（交换机，服务器，防火墙等）
     """
 
-    device_type_choices = (("1", "服务器"), ("2", "路由器"), ("3", "交换机"), ("4", "防火墙"))
-    device_status_choices = (("1", "上架"), ("2", "在线"), ("3", "离线"), ("4", "下架"))
+    device_type_choices = (("1", "服务器"), ("2", "路由器"),
+                           ("3", "交换机"), ("4", "防火墙"))
+    device_status_choices = (("1", "上架"), ("2", "在线"),
+                             ("3", "离线"), ("4", "下架"))
 
     device_type_id = models.CharField(
         choices=device_type_choices, max_length=1, default="1", help_text="设备类型"
@@ -121,7 +123,8 @@ class Asset(models.Model):
     node = models.ForeignKey(
         "TreeNode", verbose_name="节点", related_name="assets", on_delete=models.CASCADE
     )
-    tag = models.ManyToManyField("Tag", verbose_name="标签", related_name="assets")
+    tag = models.ManyToManyField(
+        "Tag", verbose_name="标签", related_name="assets")
     latest_date = models.DateField(
         verbose_name="更新时间", default=timezone.now, null=True, blank=True
     )
@@ -226,7 +229,8 @@ class Connection(models.Model):
     user = models.CharField("ssh用户", max_length=64)
     password = models.CharField("连接密码", max_length=1024)
     port = models.PositiveIntegerField(verbose_name="sshd监听端口")
-    authed = models.BooleanField(default=False, verbose_name="是否认证", help_text="是否建立互信")
+    authed = models.BooleanField(
+        default=False, verbose_name="是否认证", help_text="是否建立互信")
 
     class Meta:
         verbose_name = "服务器连接表"
@@ -250,8 +254,6 @@ class InventoryPool(models.Model):
         return self.group
 
 
-
-
 class Variable2Group(models.Model):
     """
     变量到组的关系表
@@ -259,10 +261,11 @@ class Variable2Group(models.Model):
     key = models.CharField("变量名", max_length=64)
     val = models.CharField("变量值", max_length=512)
     group = models.ForeignKey("InventoryPool",
-                                 verbose_name="所属组",
-                                 related_name="inv2vars",
-                                 on_delete=models.CASCADE,
-                                 blank=True, null=True)
+                              verbose_name="所属组",
+                              related_name="inv2vars",
+                              on_delete=models.CASCADE,
+                              blank=True, null=True)
+
     class Meta:
         verbose_name = "Ansible 组变量表"
         verbose_name_plural = verbose_name
@@ -271,6 +274,7 @@ class Variable2Group(models.Model):
     def __str__(self):
         return "{}:{}={}".format(self.group.group, self.key, self.val)
 
+
 class Variable2Server(models.Model):
     """
     变量到主机的关系表
@@ -278,17 +282,15 @@ class Variable2Server(models.Model):
     key = models.CharField("变量名", max_length=64, default='')
     val = models.CharField("变量值", max_length=512, default='')
     host = models.ForeignKey("Server",
-                                 verbose_name="所属主机",
-                                 related_name="server2vars",
-                                 on_delete=models.CASCADE,
-                                 blank=True, null=True)
+                             verbose_name="所属主机",
+                             related_name="server2vars",
+                             on_delete=models.CASCADE,
+                             blank=True, null=True)
+
     class Meta:
         verbose_name = "Ansible 主机变量表"
         verbose_name_plural = verbose_name
         db_table = "var_host"
 
     def __str__(self):
-        return "{}:{}={}".format( self.host.host_name, self.key, self.val)
-
-
-
+        return "{}:{}={}".format(self.host.host_name, self.key, self.val)
